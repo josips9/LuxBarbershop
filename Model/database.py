@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+from dotenv import load_dotenv
 import socket
 
 import firebase_admin
@@ -35,17 +36,19 @@ class DataBase:
     name = "Firebase"
 
     def __init__(self):
+        load_dotenv()
+
         # Get the path to the service account key file
         key_file = os.path.join(os.path.dirname(__file__), 'firebase-adminsdk.json')
 
         # Initialize Firebase
         # cred = credentials.Certificate(key_file)
         cred = credentials.Certificate(key_file)
-        firebase_admin.initialize_app(cred, {
-            'databaseURL': 'https://lux-barbershop-no-login-default-rtdb.europe-west1.firebasedatabase.app/'
-        })
 
-        self.DATABASE_URL = "https://lux-barbershop-no-login-default-rtdb.europe-west1.firebasedatabase.app/"
+        self.DATABASE_URL = os.getenv('DATABASE_URL')
+        firebase_admin.initialize_app(cred, {
+            'databaseURL': self.DATABASE_URL
+        })
 
         # Address for users collections.
         self.USER_DATA = "Userdata"
