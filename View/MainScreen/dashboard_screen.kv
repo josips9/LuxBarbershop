@@ -1,0 +1,33 @@
+<DashboardScreenView>:
+    barber_list: barber_list
+
+    MDBottomNavigation:
+        MDBottomNavigationItem:
+            name: 'barbers'
+            BoxLayout:
+                orientation: 'vertical'
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(56)
+                    spacing: dp(10)
+                    padding: dp(10)
+
+                    MDTextField:
+                        id: barber_name_input
+                        hint_text: "Enter barber name"
+
+                    MDTextField:
+                        id: barber_specialty_input
+                        hint_text: "Enter barber specialty"
+
+                    MDRaisedButton:
+                        text: "Create Barber"
+                        on_release: root.create_barber_button()
+
+                ScrollView:
+                    GridLayout:
+                        id: barber_list
+                        cols: 1
+                        size_hint_y: None
+                        height: self.minimum_height
