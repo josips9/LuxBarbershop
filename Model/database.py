@@ -27,6 +27,56 @@ def get_connect(func, host="8.8.8.8", port=53, timeout=3):
     return wrapped
 
 
+def add_barber(barber_id: object, barber: object) -> object:
+    """
+    Adds a new barber to the database.
+
+    Args:
+        barber_id (str): The ID of the barber.
+        barber (Barber): The barber object containing the details.
+
+    Returns:
+        bool: True if the barber is added successfully, False otherwise.
+    """
+    try:
+        # Get a reference to the "barbers" node in the database
+        barbers_ref = db.reference('barbers')
+
+        # Create a new child node with the provided barber_id
+        barber_ref = barbers_ref.child(barber_id)
+
+        # Set the barber details as the value of the child node
+        barber_ref.set({
+            'id': barber.id,
+            'name': barber.name,
+            'specialty': barber.service
+        })
+
+        return True
+    except Exception as e:
+        print("Error adding barber:", str(e))
+        return False
+
+
+def generate_id() -> object:
+    """
+    Generates a unique ID for a new barber in the database.
+    Returns:
+        str: The unique ID generated for the new barber.
+    """
+
+    # Get a reference to the "barbers" node in the database
+    barbers_ref = db.reference('barbers')
+
+    # Use push() to generate a new child node with a unique ID
+    new_barber_ref = barbers_ref.push()
+
+    # Get the generated ID from the new child node's key
+    unique_id = new_barber_ref.key
+
+    return unique_id
+
+
 class DataBase:
     """
     Your methods for working with the database should be implemented in this
@@ -42,7 +92,6 @@ class DataBase:
         key_file = os.path.join(os.path.dirname(__file__), 'firebase-adminsdk.json')
 
         # Initialize Firebase
-        # cred = credentials.Certificate(key_file)
         cred = credentials.Certificate(key_file)
 
         self.DATABASE_URL = os.getenv('DATABASE_URL')
@@ -60,54 +109,6 @@ class DataBase:
         self.real_time_firebase = firebase.FirebaseApplication(
             self.DATABASE_URL, None
         )
-
-    def generate_id(self) -> object:
-        """
-        Generates a unique ID for a new barber in the database.
-        Returns:
-            str: The unique ID generated for the new barber.
-        """
-
-        # Get a reference to the "barbers" node in the database
-        barbers_ref = db.reference('barbers')
-
-        # Use push() to generate a new child node with a unique ID
-        new_barber_ref = barbers_ref.push()
-
-        # Get the generated ID from the new child node's key
-        unique_id = new_barber_ref.key
-
-        return unique_id
-
-    def add_barber(self, barber_id: object, barber: object) -> object:
-        """
-        Adds a new barber to the database.
-
-        Args:
-            barber_id (str): The ID of the barber.
-            barber (Barber): The barber object containing the details.
-
-        Returns:
-            bool: True if the barber is added successfully, False otherwise.
-        """
-        try:
-            # Get a reference to the "barbers" node in the database
-            barbers_ref = db.reference('barbers')
-
-            # Create a new child node with the provided barber_id
-            barber_ref = barbers_ref.child(barber_id)
-
-            # Set the barber details as the value of the child node
-            barber_ref.set({
-                'id': barber.id,
-                'name': barber.name,
-                'specialty': barber.service
-            })
-
-            return True
-        except Exception as e:
-            print("Error adding barber:", str(e))
-            return False
 
     def get_all_barbers(self) -> object:
         """
@@ -134,3 +135,4 @@ class DataBase:
             return False
 
         return data
+
