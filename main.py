@@ -51,7 +51,7 @@ class LuxBarbershopNoLogin(MDApp):
         # Create an instance of the barber controller
         self.barber_controller = BarberController(self.database)
 
-    def build_app(self) -> MDScreenManager:
+    def build_app(self, **kwargs) -> MDScreenManager:
         """
         In this method, you don't need to change anything other than the
         application theme.
@@ -79,7 +79,7 @@ class LuxBarbershopNoLogin(MDApp):
 
     def on_save(self, instance, value, date_range):
         """
-        Events called when the "OK" dialog box button is clicked.
+        Events called when the "OK" dialog box button in calendar is clicked.
 
         :type instance: <kivymd.uix.picker.MDDatePicker object>;
         :param value: selected date;

@@ -24,7 +24,7 @@
             pos_hint: {"center_x": .5, "center_y": .3}
             halign: "center"
             color: rgba(127, 127, 127, 255)
-        Button:
+        MDFillRoundFlatButton:
             text: "LOGIN"
             size_hint: .66, .065
             pos_hint: {"center_x": .5, "center_y": .18}
@@ -33,13 +33,7 @@
             on_release:
                 root.manager.transition.direction = "left"
                 root.manager.current = "dashboard screen"
-            canvas.before:
-                Color:
-                    rgba: rgba(198, 147, 84, 255)
-                RoundedRectangle:
-                    size: self.size
-                    pos: self.pos
-                    radius: [5]
+
         Button:
             text: "SIGN UP"
             size_hint: .66, .065
