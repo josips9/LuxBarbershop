@@ -1,7 +1,6 @@
 from kivymd.uix.bottomnavigation import MDBottomNavigationItem
 from Model import database
 from Model.barber_model import Barber
-from Model.database import DataBase
 from View.base_screen import BaseScreenView
 from Controller.barber_controller import BarberController
 
@@ -11,12 +10,8 @@ class BarberListItem(MDBottomNavigationItem):
 
 
 class DashboardScreenView(BaseScreenView):
-    def __init__(self, **kwargs):
-        super(DashboardScreenView, self).__init__(**kwargs)
-        self.barber_controller = BarberController(database)
-
     barber_list = BarberListItem()
-
+    barber_controller = BarberController(database)
 
     def model_is_changed(self) -> None:
         """
@@ -35,7 +30,6 @@ class DashboardScreenView(BaseScreenView):
 
     def create_barber_button(self):
         barber_id = self.barber_controller.database.generate_id()
-
         # Retrieve the inputs from the UI fields
         barber_name_input = self.ids.barber_name_input
         barber_specialty_input = self.ids.barber_specialty_input

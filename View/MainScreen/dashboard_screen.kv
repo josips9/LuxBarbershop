@@ -4,22 +4,23 @@
     MDBottomNavigation:
         MDBottomNavigationItem:
             name: 'barbers'
+            icon: "view-dashboard"
             BoxLayout:
                 orientation: 'vertical'
 
                 BoxLayout:
                     size_hint_y: None
-                    height: dp(56)
-                    spacing: dp(10)
-                    padding: dp(10)
+                    height: dp(60)
+                    spacing: dp(50)
+                    padding: dp(5)
 
                     MDTextField:
                         id: barber_name_input
-                        hint_text: "Enter barber name"
+                        hint_text: "Barber name"
 
                     MDTextField:
                         id: barber_specialty_input
-                        hint_text: "Enter barber specialty"
+                        hint_text: "Barber specialty"
 
                     MDRaisedButton:
                         text: "Create Barber"
@@ -31,3 +32,13 @@
                         cols: 1
                         size_hint_y: None
                         height: self.minimum_height
+
+        MDBottomNavigationItem:
+            name: 'appointments'
+            icon: "clipboard-list-outline"
+
+
+        MDBottomNavigationItem:
+            name: 'calendar'
+            icon: "calendar-month"
+            on_tab_press: app.show_date_picker()
