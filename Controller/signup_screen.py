@@ -1,11 +1,11 @@
 import importlib
 
-import View.MainScreen.signup_screen
+import View.SignupScreen.signup_screen
 
 # We have to manually reload the view module in order to apply the
 # changes made to the code on a subsequent hot reload.
 # If you no longer need a hot reload, you can delete this instruction.
-importlib.reload(View.MainScreen.signup_screen)
+importlib.reload(View.SignupScreen.signup_screen)
 
 
 class SignUpScreenController:
@@ -18,7 +18,7 @@ class SignUpScreenController:
 
     def __init__(self, model):
         self.model = model # Model.signup_screen.SignUpScreenModel
-        self.view = View.MainScreen.signup_screen.SignUpScreenView(controller=self, model=self.model)
+        self.view = View.SignupScreen.signup_screen.SignUpScreenView(controller=self, model=self.model)
 
-    def get_view(self) -> View.MainScreen.signup_screen:
+    def get_view(self) -> View.SignupScreen.signup_screen:
         return self.view

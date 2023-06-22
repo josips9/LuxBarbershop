@@ -77,6 +77,20 @@ def generate_id() -> object:
     return unique_id
 
 
+def get_all_barbers(self) -> object:
+    """
+    Retrieves all barbers from the database.
+    Returns a list of barbers.
+    """
+
+    barbers = self.get_data_from_collection("barbers")
+
+    if barbers:
+        return list(barbers.values())
+    else:
+        return []
+
+
 class DataBase:
     """
     Your methods for working with the database should be implemented in this
@@ -110,19 +124,6 @@ class DataBase:
             self.DATABASE_URL, None
         )
 
-    def get_all_barbers(self) -> object:
-        """
-        Retrieves all barbers from the database.
-        Returns a list of barbers.
-        """
-
-        barbers = self.get_data_from_collection("Barbers")
-
-        if barbers:
-            return list(barbers.values())
-        else:
-            return []
-
     @get_connect
     def get_data_from_collection(self, name_collection: str) -> dict | bool:
         """Returns data of the selected collection from the database."""
@@ -135,4 +136,3 @@ class DataBase:
             return False
 
         return data
-
